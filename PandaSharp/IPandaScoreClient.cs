@@ -18,5 +18,8 @@ namespace PandaSharp
         Task<List<Tournament>?> GetTournamentsByLeague(int id, string? query = null);
         Task<List<Tournament>?> GetTournamentsByLeague(string slug, string? query = null);
         Task<List<Live>?> GetLives(string? query = null);
+        Task<List<Match>?> GetMatches(TimeReference? timeRef = null, string? query = null);
+        Task<Match?> GetMatch(int id, string? query = null);
+        Task<Match?> GetMatch(string slug, string? query = null);
     }
 }

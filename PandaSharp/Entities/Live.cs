@@ -19,13 +19,13 @@ namespace PandaSharp.Entities
     public class Endpoint
     {
         [JsonPropertyName("begin_at")]
-        public DateTime BeginAt { get; set; }
+        public DateTime? BeginAt { get; set; }
 
         [JsonPropertyName("expected_begin_at")]
-        public DateTime ExpectedBeginAt { get; set; }
+        public DateTime? ExpectedBeginAt { get; set; }
 
         [JsonPropertyName("last_active")]
-        public int LastActive { get; set; }
+        public int? LastActive { get; set; }
 
         [JsonPropertyName("match_id")]
         public int MatchId { get; set; }

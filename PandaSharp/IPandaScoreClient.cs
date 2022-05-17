@@ -17,5 +17,6 @@ namespace PandaSharp
         Task<List<Serie>?> GetSeriesByLeague(string slug, string? query = null);
         Task<List<Tournament>?> GetTournamentsByLeague(int id, string? query = null);
         Task<List<Tournament>?> GetTournamentsByLeague(string slug, string? query = null);
+        Task<List<Live>?> GetLives(string? query = null);
     }
 }

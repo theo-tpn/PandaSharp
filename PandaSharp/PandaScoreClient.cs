@@ -98,6 +98,16 @@ namespace PandaSharp
             return await InnerGetTournamentsdByLeague(slug, query);
         }
 
+        public async Task<List<Live>?> GetLives(string? query = null)
+        {
+            var response = await _httpClient.GetAsync($"lives{(query == null ? "" : $"?{query}")}");
+            if (!response.IsSuccessStatusCode)
+                return null;
+
+            var c = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<List<Live>>(await response.Content.ReadAsStringAsync());
+        }
+
         private async Task<List<Match>?> InnerGetMatchesByLeague(object by, TimeReference? timeRef = null, string? query = null)
         {
             var sb = new StringBuilder();

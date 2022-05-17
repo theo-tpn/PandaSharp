@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using PandaSharp.Entities;
+using PandaSharp.Utils;
 
 namespace PandaSharp.Samples.Api.Controllers
 {
@@ -16,6 +18,8 @@ namespace PandaSharp.Samples.Api.Controllers
         public WeatherForecastController(ILogger<WeatherForecastController> logger, IPandaScoreClient client)
         {
             _logger = logger;
+            var r = new PandaRequest().From(PandaEntity.Leagues).By(4772.ToString()).Get(PandaEntity.Matches);
+            var s = client.Execute<List<Match>>(r).Result;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]

@@ -2,7 +2,7 @@
 
 namespace PandaSharp.Entities
 {
-    public class Series
+    public class Serie
     {
         [JsonPropertyName("begin_at")]
         public DateTime BeginAt { get; set; }

@@ -71,7 +71,7 @@ namespace PandaSharp.Entities
         public DateTime ScheduledAt { get; set; }
 
         [JsonPropertyName("serie")]
-        public Series Serie { get; set; }
+        public Serie Serie { get; set; }
 
         [JsonPropertyName("serie_id")]
         public int SerieId { get; set; }
@@ -101,10 +101,10 @@ namespace PandaSharp.Entities
         public VideogameVersion VideogameVersion { get; set; }
 
         [JsonPropertyName("winner")]
-        public object Winner { get; set; }
+        public object? Winner { get; set; }
 
         [JsonPropertyName("winner_id")]
-        public int WinnerId { get; set; }
+        public int? WinnerId { get; set; }
     }
 
     public class VideogameVersion

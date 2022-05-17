@@ -8,7 +8,7 @@ namespace PandaSharp.Entities
         public DateTime BeginAt { get; set; }
 
         [JsonPropertyName("end_at")]
-        public DateTime EndAt { get; set; }
+        public DateTime? EndAt { get; set; }
 
         [JsonPropertyName("id")]
         public int Id { get; set; }
@@ -35,7 +35,7 @@ namespace PandaSharp.Entities
         public object Prizepool { get; set; }
 
         [JsonPropertyName("serie")]
-        public Series Serie { get; set; }
+        public Serie Serie { get; set; }
 
         [JsonPropertyName("serie_id")]
         public int SerieId { get; set; }

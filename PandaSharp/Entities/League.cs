@@ -17,7 +17,7 @@ namespace PandaSharp.Entities
         public string Name { get; set; }
 
         [JsonPropertyName("series")]
-        public List<Series> Series { get; set; }
+        public List<Serie> Series { get; set; }
 
         [JsonPropertyName("slug")]
         public string Slug { get; set; }

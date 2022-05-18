@@ -1,4 +1,4 @@
-﻿namespace PandaSharp.Utils
+﻿namespace PandaSharp.Utils.Enums
 {
     public enum PandaScoreSortOption
     {

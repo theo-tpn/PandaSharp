@@ -1,4 +1,6 @@
-﻿namespace PandaSharp.Utils
+﻿using PandaSharp.Utils.Enums;
+
+namespace PandaSharp.Utils
 {
     public class PandaRequest
     {
@@ -12,7 +14,7 @@
 
             if (!_request.TryAdd(PandaRequestAction.From, strEntity))
                 throw new InvalidOperationException("'From' action have already be chained.");
-            
+
             return this;
         }
 

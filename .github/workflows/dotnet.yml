@@ -10,34 +10,23 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v1
 
-    - name: Fetch all history for all tags and branches
-      run: git fetch --prune --unshallow
+    - name: Install dotnet tool
+      run: dotnet tool install -g dotnetCampus.TagToVersion
 
-    - name: GitVersion
-      id: gitversion
-      uses: nmcc/actions/gitversion@v1
+    - name: Set tag to version
+      run: dotnet TagToVersion -t ${{ github.ref }}
+
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+
+    - name: Install Nuget
+      uses: nuget/setup-nuget@v1
       with:
-        path-to-gitversion: packages/GitVersion.CommandLine/tools/GitVersion.exe
+        nuget-version: '5.x'
 
-    - run: |
-        echo "NuGetVersionV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}"
-        echo "NuGetPreReleaseTagV2: ${{ steps.gitversion.outputs.CommitsSinceVersionSourcePadded }}"
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v2
-      with:
-        dotnet-version: 6.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore --configuration Release
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-    - name: Pack with dotnet
-      run: dotnet pack src/Raptor.Core.AspNetCore/Raptor.Core.AspNetCore.csproj --output nuget-packages --configuration Release -p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }}-${{ steps.gitversion.outputs.CommitsSinceVersionSourcePadded }}
-    - name: Push with dotnet
-      run: dotnet nuget push nuget-packages/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json}}
+    - name: Push generated package to GitHub registry
+      run: |
+        nuget push .\bin\release\*.nupkg -Source https://api.nuget.org/v3/index.json -SkipDuplicate -ApiKey ${{ secrets.NUGET_API_KEY }} -NoSymbols

@@ -20,9 +20,10 @@ jobs:
       uses: gittools/actions/gitversion/setup@v0.9
       with:
           versionSpec: '5.1.x'
-    - name: Use GitVersion
+    - name: GitTools
       id: gitversion # step id used as reference for output values
-      uses: gittools/actions/gitversion/execute@v0.9
+      uses: GitTools/actions@v0.9.13
+
     - run: |
         echo "NuGetVersionV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}"
         echo "NuGetPreReleaseTagV2: ${{ steps.gitversion.outputs.CommitsSinceVersionSourcePadded }}"

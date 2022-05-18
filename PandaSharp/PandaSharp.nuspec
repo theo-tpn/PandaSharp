@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>1.0.15</version>
+    <title>PandaSharp</title>
+    <authors>theo-tpn</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/theo-tpn/PandaSharp</projectUrl>
+    <description>.NET SDK for PandaScore APIs </description>
+    <releaseNotes>First release.</releaseNotes>
+    <copyright>MIT License - Copyright (c) 2022 Théo</copyright>
+    <tags>.net sdk pandascore api esport c# net6</tags>
+  </metadata>
+</package>

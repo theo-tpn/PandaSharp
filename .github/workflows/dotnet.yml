@@ -16,8 +16,13 @@ jobs:
 
     - name: Fetch all history for all tags and branches
       run: git fetch --prune --unshallow
-    - name: GitTools
-      uses: GitTools/actions@v0.9.13
+      
+    - name: GitVersion
+      id: gitversion
+      uses: nmcc/actions/gitversion@v1
+      with:
+        path-to-gitversion: packages/GitVersion.CommandLine/tools/GitVersion.exe
+
 
     - name: Use GitVersion
       id: gitversion # step id used as reference for output values

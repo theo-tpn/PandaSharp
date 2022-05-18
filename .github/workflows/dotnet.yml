@@ -18,8 +18,6 @@ jobs:
       run: git fetch --prune --unshallow
     - name: GitTools
       uses: GitTools/actions@v0.9.13
-      with:
-          versionSpec: '5.1.x'
 
     - name: Use GitVersion
       id: gitversion # step id used as reference for output values

@@ -12,14 +12,14 @@ namespace PandaSharp
             _httpClient = httpCient;
         }
 
-        public async Task<T?> Execute<T>(PandaRequest request, PandaQuery? query = null)
+        public async Task<T?> Execute<T>(PandaRequest request)
         {
-            return await Execute<T>(request.ToString(), query?.ToString());
+            return await Execute<T>(request.ToString());
         }
 
-        public async Task<T?> Execute<T>(string request, string? query = null)
+        public async Task<T?> Execute<T>(string request)
         {
-            var response = await _httpClient.GetAsync($"{request}{(query == null ? "" : $"?{query}")}");
+            var response = await _httpClient.GetAsync($"{request}");
             if (!response.IsSuccessStatusCode)
                 return default;
 

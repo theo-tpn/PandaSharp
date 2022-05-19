@@ -5,6 +5,7 @@ namespace PandaSharp.Utils
     public class PandaRequest
     {
         private readonly Dictionary<PandaRequestAction, string> _request = new();
+        private PandaQuery? _query;
 
         public PandaRequest From(PandaEntity entity)
         {
@@ -38,9 +39,17 @@ namespace PandaSharp.Utils
             return this;
         }
 
+        public PandaRequest AddQuery(PandaQuery query)
+        {
+            _query = query;
+            return this;
+        }
+
         public override string ToString()
         {
-            return string.Join('/', _request.Select(x => x.Value));
+            return 
+                $"{string.Join('/', _request.Select(x => x.Value))}" +
+                $"{(_query == null ? "" : $"?{_query.ToString()}")}";
         }
 
         private string? StringifyPandaEntity(PandaEntity entity) => entity switch

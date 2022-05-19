@@ -30,18 +30,22 @@ Request below will return list of matches for league with the given 'leagueId'
  ```csharp
 var request = new PandaRequest().From(PandaEntity.Leagues).By(leagueId).Get(PandaEntity.Matches);
  ```
-## PandaQuery
- PandaQuery allow building query in order to sort, filter, range and search over PandaScore endpoints.
+### PandaQuery
+ PandaQuery can be chain to PandaRequest in order to sort, filter, range and search over PandaScore endpoints.
 
  The query below will ask for players where name contains 'pew' and sort them ascending based on their name too.
  ```csharp
- var query = 
-    new PandaQuery()
-        .AddSort<Player>(new Dictionary<Expression<Func<Player, object>>,  PandaScoreSortOption>
-        {
-            { x => x.Name, PandaScoreSortOption.Ascending }
-        })
-        .AddSearch<Player>(x => x.Name, "pew");
+ var request = new PandaRequest()
+    .Get(PandaEntity.Players)
+    .AddQuery(
+        new PandaQuery()
+        .AddSort<Player>(
+            new Dictionary<Expression<Func<Player, object>>,  PandaScoreSortOption>
+            {
+                { x => x.Name, PandaScoreSortOption.Ascending }
+            })
+        .AddSearch<Player>(x => x.Name, "pew"););
+
  ```
 ## Execute call
 

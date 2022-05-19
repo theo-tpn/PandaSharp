@@ -2,6 +2,8 @@
 
 ## Overview
  PandaSharp is a lightweight .NET SDK for PandaScore APIs.
+ 
+https://www.nuget.org/packages/PandaSharp/
 
 ## Getting Started
 

@@ -52,13 +52,11 @@ var request = new PandaRequest().From(PandaEntity.Leagues).By(leagueId).Get(Pand
 ## Execute call
 
 ```csharp
-//using PandaRequest and PandaQuery object
+//using PandaRequest object
 var result = await client.Execute<List<Match>>(myPandaRequest);
-var result = await client.Execute<List<Match>>(myPandaRequest, myPandaQuery);
 
-//using own string request and query
+//using own string request
 var result = await client.Execute<List<Match>>("string_request");
-var result = await client.Execute<List<Match>>("string_request", "string_query");
 ```
 
 ## Read the docs

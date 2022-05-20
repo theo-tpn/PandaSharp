@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Newtonsoft.Json;
+using NUnit.Framework;
 using PandaSharp.Utils;
 using System;
 using System.Text.Json.Serialization;
@@ -14,7 +15,7 @@ namespace PandaSharp.Tests
         }
 
         [Test]
-        public void ShouldReturnFullQuery()
+        public void ToStringShouldReturnFullQuery()
         {
             //arrange
             var q = new PandaQuery().AddFilter<Foo>(x => x.Name, new string[] { "value" });
@@ -29,23 +30,56 @@ namespace PandaSharp.Tests
         }
 
         [Test]
+        public void ToStringShouldEmptyValue()
+        {
+            //arrange
+            var q = new PandaQuery();
+
+            //act
+            var result = q.ToString();
+
+            //assert
+            Assert.IsEmpty(result);
+        }
+
+        [Test]
         public void ShouldThrowsExceptionIfOperationHasAlreadyBeDone()
         {
             //arrange
+            var filterValues = new string[] { "value" };
             //act
             //assert
             Assert.Throws<InvalidOperationException>(() => 
             { 
                 new PandaQuery()
-                .AddFilter<Foo>(x => x.Name, new string[] { "value" })
-                .AddFilter<Foo>(x => x.Name, new string[] { "value" }); 
+                .AddFilter<Foo>(x => x.Name, filterValues)
+                .AddFilter<Foo>(x => x.Name, filterValues); 
             });
         }
-    }
 
-    public class Foo
-    {
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
+        [Test]
+        public void ShouldThrowsExceptionIfPropertyJsonAttributeCannotBeEvaluate()
+        {
+            //arrange
+            var filterValue = new string[] { "value" };
+            //act
+            //assert
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                new PandaQuery()
+                .AddFilter<Foobad>(x => x.Name, filterValue);
+            });
+        }
+
+        class Foo
+        {
+            [JsonPropertyName("name")]
+            public string Name { get; set; }
+        }
+
+        class Foobad
+        {
+            public string Name { get; set; }
+        }
     }
 }

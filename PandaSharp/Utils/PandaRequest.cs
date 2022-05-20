@@ -10,8 +10,6 @@ namespace PandaSharp.Utils
         public PandaRequest From(PandaEntity entity)
         {
             var strEntity = StringifyPandaEntity(entity);
-            if (strEntity == null)
-                throw new ArgumentException("Could not stringify the given entity.");
 
             if (!_request.TryAdd(PandaRequestAction.From, strEntity))
                 throw new InvalidOperationException("'From' action have already be chained.");
@@ -22,25 +20,29 @@ namespace PandaSharp.Utils
         public PandaRequest Get(PandaEntity entity)
         {
             var strEntity = StringifyPandaEntity(entity);
-            if (strEntity == null)
-                throw new ArgumentException("Could not stringify the given entity.");
 
             if (!_request.TryAdd(PandaRequestAction.Get, strEntity))
-                throw new InvalidOperationException("'Get' action have already be chained.");
+                throw new InvalidOperationException("'Get' action have already been chained.");
 
             return this;
         }
 
         public PandaRequest By(string by)
         {
+            if(string.IsNullOrEmpty(by))
+                throw new ArgumentException("Could not stringify the given entity.");
+
             if (!_request.TryAdd(PandaRequestAction.By, by))
-                throw new InvalidOperationException("'By' action have already be chained.");
+                throw new InvalidOperationException("'By' action have already been chained.");
 
             return this;
         }
 
         public PandaRequest AddQuery(PandaQuery query)
         {
+            if (_query != null)
+                throw new InvalidOperationException("A 'Query' have already been chained.");
+
             _query = query;
             return this;
         }
@@ -52,7 +54,7 @@ namespace PandaSharp.Utils
                 $"{(_query == null ? "" : $"?{_query.ToString()}")}";
         }
 
-        private string? StringifyPandaEntity(PandaEntity entity) => entity switch
+        private static string StringifyPandaEntity(PandaEntity entity) => entity switch
         {
             PandaEntity.Leagues => "leagues",
             PandaEntity.Lives => "lives",
@@ -85,7 +87,7 @@ namespace PandaSharp.Utils
             PandaEntity.Runes => "runes",
             PandaEntity.Spells => "spells",
             PandaEntity.Agents => "agents",
-            _ => null,
+            _ => throw new InvalidOperationException($"Could not stringify the given PandaEntity {entity}"),
         };
 
         enum PandaRequestAction

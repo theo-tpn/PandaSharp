@@ -82,7 +82,12 @@ namespace PandaSharp.Utils
                 throw new InvalidOperationException("Cannot evaluate expression.");
 
             var attrData = prop.GetCustomAttributesData();
-            return (string)attrData.Single(x => x.AttributeType == typeof(JsonPropertyNameAttribute)).ConstructorArguments[0].Value!;
+            var jsonAttr = attrData.SingleOrDefault(x => x.AttributeType == typeof(JsonPropertyNameAttribute));
+
+            if (jsonAttr == null)
+                throw new InvalidOperationException("Cannot retrieve JsonProperty attribute");
+
+            return (string)jsonAttr.ConstructorArguments[0].Value!;
         }
     }
 }
